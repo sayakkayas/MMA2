@@ -1,5 +1,5 @@
 body {
-                     background-image: url(images/typing-header.gif);
+                     background-image: url(images/secure5.jpg);
                      background-repeat: no-repeat;
                        background-size: 100% 150%;
 }
@@ -12,8 +12,8 @@ body {
 	text-align: center;
 	margin:0 auto;
 	/*background-color: #660066;*/
-background: linear-gradient(to bottom, #003300 0%, #ccff33 100%);	border-radius:4px;
-	
+/*background: linear-gradient(to bottom, #003300 0%, #ccff33 100%);	border-radius:4px;*/
+background: linear-gradient(to bottom, #000066 0%, #6600cc 100%);	
 	margin-top: 80px;
     position:relative; 
     	
@@ -41,11 +41,11 @@ background: linear-gradient(to bottom, #003300 0%, #ccff33 100%);	border-radius:
 
  h3
 { 
-  color:white;
+  color:black;
   font-weight: bold; 
-  font-size:30px;
+  font-size:35px;
   text-align: center;
-  
+  font-family: Avantgarde;
 }
 
 
