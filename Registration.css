@@ -1,0 +1,105 @@
+body {
+                     background-image: url(images/Regis1.jpg);
+                     background-repeat: no-repeat;
+                       background-size: 100% 150%;
+}
+
+
+.container
+{
+	width:500px;
+	height:500px;
+	text-align: center;
+	margin:0 auto;
+	/*background-color: #660066;*/
+background: linear-gradient(to bottom, #000099 0%, #3399ff 100%);	opacity: 0.95;
+	border-radius:4px;
+	
+	margin-top: 80px;
+    position:relative; 
+    	
+}
+
+.form-input
+{
+	text-align:center;
+}
+
+.container img
+{  width:200px;
+	height:90px;
+   margin-top: -60px;
+	margin-bottom: 30px;
+   
+}
+
+ h2
+{ 
+  color:white;
+  font-weight: bold; 
+  
+}
+
+ h3
+{ 
+  color:white;
+  font-weight: bold; 
+  font-size:30px;
+  text-align: center;
+  
+}
+
+
+.container input
+{
+	text-align:center;
+	margin-left:120px;
+}
+
+.container label 
+{ 	font-size: 28px;
+    color:rgb(255,255,255);  
+}
+
+
+input[type="submit"]{
+	width:250px;
+	height:45px;
+    font-size: 18px;
+    background-color: rgb(255,255,255);
+	margin-bottom: 20px;
+    padding-left: 10px;  
+    margin-right: 150px;
+
+
+
+}
+
+
+
+input[type="text"]{
+	width:250px;
+	height:45px;
+    font-size: 18px;
+    background-color: rgb(255,255,255);
+	margin-bottom: 20px;
+    padding-left: 10px;  
+    margin-right: 150px;
+
+
+
+}
+
+input[type="password"]{
+	width:250px;
+	height:45px;
+    font-size: 18px;
+    background-color: rgb(255,255,255);
+	margin-bottom: 20px;
+    padding-left: 10px;  
+ /*  text-align: center;
+ */
+
+}
+
+
