@@ -19,7 +19,7 @@ Preferred password: <?php echo $_GET["password_1"]; ?>
     else
     {
     	echo("<script type='text/javascript'> alert('Steady your hands, things are going to be calm');</script>");
-        echo("<script type='text/javascript'> window.location.replace('Registration.html');</script>");
+        echo("<script type='text/javascript'> window.location.replace('RegistrationDummy.html');</script>");
          
     
 
