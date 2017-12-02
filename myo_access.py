@@ -156,7 +156,7 @@ def verify_users_table():
 
 def record_emg( seconds, email=None ):
     # Call EMG Sampler, and capture output
-    emg_series = check_output( ['Apps/x64/Release/emg-data-sample.exe', str(seconds)] )
+    emg_series = check_output( ['emg-data-sample.exe', str(seconds)] )
 
     # Get rid of dumb Windows carriage returns
     emg_series = emg_series.replace( '\r\n', '\n' )
