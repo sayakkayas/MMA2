@@ -1,30 +1,46 @@
-<html>
-<body>
-
-Preferred Email: <?php 
-session_start();
-$var_email= $_GET["preferred_email"]; 
-echo $var_email;
-$_SESSION['email']=$var_email;
-?><br>
-Preferred password: <?php echo $_GET["password_1"]; ?>
 <?php
+session_start();
 
-//if preferred_email and password matches any previous entries then we prompt so and redirect to login page(MMA.html) 
-    if(false)
-    {
-    	echo("<script type='text/javascript'> alert('Email or password already in use');</script>");
-        echo("<script type='text/javascript'>window.location.replace('MMA.html');</script>");
-    }
-    else
-    {
-    	echo("<script type='text/javascript'> alert('Steady your hands, things are going to be calm');</script>");
-        echo("<script type='text/javascript'> window.location.replace('RegistrationDummy.html');</script>");
-         
-    
-
-    }
+$email = $_GET["preferred_email"];
+$password = $_GET["password_1"];
+$_SESSION['email'] = $email;
+$_SESSION['password'] = $password;
 
 ?>
-</body>
+
+<html>
+	<body>
+
+		<!-- Preferred Email: <?php echo $_GET["password_1"];?><br>
+			 Preferred password: <?php echo $_GET["password_1"]; ?> -->
+		<?php
+		// Check if user exists
+		$email = $_GET["preferred_email"];
+		$password = $_GET["password_1"];
+		$command = "python myo_access.py check_user ".$email." 2>&1";
+		exec( $command, $status );
+
+		$user_exists=(int)$status[0];
+		print_r( $status );
+		echo "<br>";
+		print_r( $user_exists );
+
+		if($user_exists)
+		{
+			echo("<script type='text/javascript'> alert('Email already in use');</script>");
+			echo("<script type='text/javascript'>window.location.replace('MMA.html');</script>");
+		}
+		else
+		{
+			$command = "python myo_access.py register ".$email." ".$password." 2>&1";
+			$out = exec( $command, $status );
+			echo("<script type='text/javascript'> alert('".$out."');</script>");
+			echo( "<br><br><br><br><br><br><br><br><br><br><br><br>" );
+			print_r( $status );
+			echo( $out );
+			echo("<script type='text/javascript'> window.location.replace('RegistrationDummy.php');</script>");
+		}
+
+		?>
+	</body>
 </html> 
