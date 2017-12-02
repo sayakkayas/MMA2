@@ -38,7 +38,7 @@ $_SESSION['password'] = $password;
 			echo( "<br><br><br><br><br><br><br><br><br><br><br><br>" );
 			print_r( $status );
 			echo( $out );
-			echo("<script type='text/javascript'> window.location.replace('RegistrationDummy.php');</script>");
+			echo("<script type='text/javascript'> window.location.replace('RegistrationDummy.html');</script>");
 		}
 
 		?>
