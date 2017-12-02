@@ -1,3 +1,13 @@
+<?php
+   session_start();
+
+   $email = $_SESSION["email"];
+   $password = $_SESSION["password"];
+
+   $_SESSION["email"] = $email;
+   $_SESSION["password"] = $password;
+   ?>
+
 <html>
 <style>
 body
@@ -51,8 +61,12 @@ a.button {
 <p>Once you have followed the instructions, scroll down and click the button</p>
 <img src="images/WearingMyo2.gif" width="600" height="300" align="left">
 <img src="images/StayStill2.gif" width="600" height="300" align="right">
-
 <img src="images/Typing4.gif" width="600" height="300" align="middle">
-<a href="Registration.html" class="btn btn-default" id="fixedbutton"><h3>I am ready!!<h3></a>
+
+<!-- <a href="Registration.html" class="btn btn-default" id="fixedbutton"><h3>I am ready!!<h3></a> -->
+
+<form action="ready.php" method="get">
+  <input type="submit" value="I am Ready!"></form>
+</form>
 	</body>
 	</html>
