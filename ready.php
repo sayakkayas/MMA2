@@ -16,8 +16,9 @@ $password = $_SESSION["password"];
 
 		$alert = "Email: ".$email.", Password: ".$password;
 
-		$command = "python myo_access.py record 7 '".$email."' 2>&1";
-		$out = shell_exec( $command );
+		$command = "start /B cmd /C 'python myo_access.py record 7 ".$email." 2>&1'";
+		$out = pclose(popen( $command, 'r' ));
+		print_r( $command );
 		print_r( $out );
 
 		echo("<script type='text/javascript'> alert('".$out."');</script>");
