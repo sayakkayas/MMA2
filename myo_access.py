@@ -4,6 +4,7 @@ import sys
 #import slidingwindow
 from enum import Enum
 from subprocess import check_output
+import logging
 
 SMOOTH_SCALE = 51
 DB_FILE = 'myo_access.db'
@@ -23,6 +24,8 @@ model text
 
 def register( email, name, model=None ):
 
+    logging.info( "Registering User: EMAIL=[{}], NAME=[{}]".format( email, name ) )
+
     db_conn = sqlite3.connect( DB_FILE )
     db = db_conn.cursor()
 
@@ -36,14 +39,16 @@ def register( email, name, model=None ):
 
     db.execute( query, param )
     db.connection.commit()
-    print db.fetchall()
-
+    #print db.fetchall()
+    
     db.close()
     db_conn.close()
 
 
     
 def check_user( email, name=None ):
+
+    logging.info( "Checking for User: EMAIL=[{}]".format( email ) )
 
     db_conn = sqlite3.connect( DB_FILE )
     db = db_conn.cursor()
@@ -78,6 +83,8 @@ def check_user( email, name=None ):
 
 def store_model( email, model ):
 
+    logging.info( "Storing Model for User: EMAIL=[{}]".format( email ) )
+
     db_conn = sqlite3.connect( DB_FILE )
     db = db_conn.cursor()
 
@@ -97,6 +104,8 @@ def store_model( email, model ):
 
     
 def get_model( email, name=None ):
+
+    logging.info( "Fetching User Model: EMAIL=[{}]".format( email ) )
 
     db_conn = sqlite3.connect( DB_FILE )
     db = db_conn.cursor()
@@ -140,6 +149,8 @@ def verify_users_table():
     r = db.execute( query ).fetchall()
 
     if ( not r ):
+        logging.warning( "Users table NOT set up!" )
+        logging.info( "Setting up users table" )
         db.execute( CREATE_TABLE_USERS_QUERY )
         db.connection.commit()
 
@@ -155,22 +166,30 @@ def verify_users_table():
 #############################################
 
 def record_emg( seconds, email=None ):
+
+    logging.info( "Recording EMG Signal for [{}] seconds".format( seconds ) )
+
     # Call EMG Sampler, and capture output
-    emg_series = check_output( ['emg-data-sample.exe', str(seconds)] )
+    emg_series = check_output( ['./emg-data-sample.exe', str(seconds)] )
 
     # Get rid of dumb Windows carriage returns
     emg_series = emg_series.replace( '\r\n', '\n' )
-    pdb.set_trace()
+
     # If an email is specified, store it in the database with the specified user
     if ( email ):
+        logging.info( "Saving EMG series with email [{}].".format( email ) )
         store_model( email, emg_series )
     # If no email is specified, store it in a temporary file 
     else:
+        logging.info( "Dumping EMG series to temporary file [{}]".format( TMP_FILE ) )
         with open( TMP_FILE, 'w' ) as fp:
             fp.write( emg_series )
 
 
 def compare_emg( email ):
+
+    logging.info( "Comparing User [{}] EMG series to temporary file".format( email ) )
+
     # Fetch the model from the database
     model = get_model( email )
 
@@ -197,6 +216,10 @@ def myo_hook( argv ):
         printUsage()
         exit(1);
 
+    # Open log
+    logging.basicConfig( filename='myo_access.log', level=logging.DEBUG,
+                         format='[%(levelname)s] %(asctime)s: %(message)s' )
+
     # Verify that the users table is set up
     verify_users_table()
     
@@ -212,6 +235,7 @@ def myo_hook( argv ):
         params = argv[2:]
     param_len = len( params )
 
+    # Check which command was requested
     if ( cmd == api.REGISTER ):
         if ( (param_len < 2) or (param_len > 3) ):
             printUsage( cmd )

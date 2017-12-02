@@ -10,15 +10,12 @@ $_SESSION['password'] = $password;
 
 <html>
 	<body>
-
-		<!-- Preferred Email: <?php echo $_GET["password_1"];?><br>
-			 Preferred password: <?php echo $_GET["password_1"]; ?> -->
 		<?php
 		// Check if user exists
 		$email = $_GET["preferred_email"];
 		$password = $_GET["password_1"];
 		$command = "python myo_access.py check_user ".$email." 2>&1";
-		exec( $command, $status );
+		$status = shell_exec( $command );
 
 		$user_exists=(int)$status[0];
 		print_r( $status );
@@ -33,11 +30,9 @@ $_SESSION['password'] = $password;
 		else
 		{
 			$command = "python myo_access.py register ".$email." ".$password." 2>&1";
-			$out = exec( $command, $status );
-			echo("<script type='text/javascript'> alert('".$out."');</script>");
-			echo( "<br><br><br><br><br><br><br><br><br><br><br><br>" );
+			$status = shell_exec( $command );
 			print_r( $status );
-			echo( $out );
+
 			echo("<script type='text/javascript'> window.location.replace('RegistrationDummy.html');</script>");
 		}
 
