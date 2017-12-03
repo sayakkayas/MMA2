@@ -13,6 +13,10 @@
 
 			if ($user_exists == 1) {
 				echo("<script type='text/javascript'> alert('Steady your hands, be sure that the Myo device is synchronized!!');</script>");
+
+				$command = "start /B python myo_access.py record 7 ";
+				pclose(popen( $command, 'r' ));
+
 				echo("<script type='text/javascript'> window.location.replace('MMA2.html');</script>");
 			} else {
 				echo("<script type='text/javascript'> alert('Invalid User!');</script>");
