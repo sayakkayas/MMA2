@@ -1,16 +1,21 @@
+<?php
+session_start();
+
+$email = $_SESSION["email"];
+$password = $_SESSION["password"];
+?>
+
 <html>
 	<body>
 		<p>
-			Model1: <?php echo $_GET["model1"]; ?>
-			<?php
-			echo("<script type='text/javascript'> alert('Could you do it for us once more? The thing is, we like your typing!!');</script>");
+		<?php
+		$command = "start /B python myo_access.py record 7 ".$email."";
+		pclose(popen( $command, 'r' ));
 
-			echo("<script type='text/javascript'> window.location.replace('Registration2.html');</script>");
+		echo("<script type='text/javascript'> alert('Could you do it for us once more? The thing is, we like your typing!!');</script>");
 
-			$command = "python myo_access.py record 7 ".$email;
-			$status = shell_exec( $command );
-
-			?><br>
-			<p>
+		echo("<script type='text/javascript'> window.location.replace('Registration2.html');</script>");
+		?>
+		<p>
 	</body>
 </html> 
