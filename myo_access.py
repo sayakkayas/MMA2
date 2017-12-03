@@ -4,6 +4,7 @@ import sys
 #import slidingwindow
 from enum import Enum
 from subprocess import check_output
+from subprocess import STDOUT
 import logging
 
 SMOOTH_SCALE = 51
@@ -170,8 +171,14 @@ def record_emg( seconds, email=None ):
     logging.info( "Recording EMG Signal for [{}] seconds".format( seconds ) )
 
     # Call EMG Sampler, and capture output
-    emg_series = check_output( ['./emg-data-sample.exe', str(seconds)] )
-
+    try:
+        emg_series = check_output( ['./emg-data-sample.exe', str(seconds)],
+                                   stderr=STDOUT )
+    except Exception as e:
+        logging.warning( "Unable to record EMG signal" )
+        logging.warning( e )
+        logging.warning( e.output )
+        return None
     # Get rid of dumb Windows carriage returns
     emg_series = emg_series.replace( '\r\n', '\n' )
 
